@@ -1,0 +1,91 @@
+print("WELCOME TO EDUCATION4OL")
+print("1.SIGNUP")
+print("2.LOGIN")
+print("3.FORGET PASSWORD")
+print("4.LOGOUT")
+print("5.DELETE ACCOUNT")
+choice=int(input("Enter your option: "))
+if(choice==1):
+  print("-------SIGNUP-------")
+  f=open("/media/file.py",'r+')
+  flag=False
+  name=input("Enter your name: ")
+  email=input("Enter your email id: ")
+  for line in f:
+    if email in line:
+      print("User already registered")
+      print("Please LOGIN")
+      flag=True
+      break
+  if flag==False:
+    f=open("/media/file.py",'a+')
+    phno=str(input("Enter your phone number: "))
+    pwd=input("Enter password: ")
+    f.write("Name:",name)
+    f.write("email:",email)
+    f.write("ph.no:",phno)
+    f.write("password:",pwd)
+    f.close()
+    print("Successfully registered!")
+elif(choice==2):
+  print("-------LOGIN-------")
+  f=open("/media/file.py",'r+')
+  flag=False
+  email=input("Enter your email id: ")
+  pwd=input("Enter your password: ")
+  for line in f:
+    if email and pwd in line:
+      print("Successfully logged in!!")
+      flag=True
+      break
+  if flag==False:
+    print("Incorrect login details!!")
+  f.close()
+elif(choice==3):
+  print("-------FORGET PASSWORD-------")
+  f=open("/media/file.py",'r+')
+  flag=False
+  email=input("Enter your registered email id: ")
+  
+  for line in f:
+    if email in line:
+      name=input("Enter your name: ")
+      new_pwd=input("Enter new password: ")
+      f=open("/media/file.py").read()
+      new_f=open("/media/newfile.py")
+      new_f.write(f)
+      f=open("/media/file.py",'w+')
+      for line in new_f:
+        if email and name and new_pwd not in line:
+          f.write(line)
+      f=open("/media/file.py",'a+')
+      f.write("Name:",name)
+      f.write("email:",email)
+      f.write("password:",new_pwd)
+      f.close()
+      print("Successfully updated")
+      f.close()
+      flag=True
+      break
+  if flag==False:
+    print("Invalid email!!")
+elif(choice==4):
+  print("-------LOGOUT-------")
+  f=open("/media/file.py",'r+')
+  f.close()
+elif(choice==5):
+  print("-------DELETE ACCOUNT-------")
+  email=input("Enter email: ")
+  f=open("/media/file.py").read()
+  new_f=open("/media/newfile.py","w+")
+  new_f.write(f)
+  f=open("/media/file.py",'w+')
+  for line in new_f:
+    if email not in line:
+      f.write(line)
+    else:
+      pass
+  print("Successfully deleted!!")
+  f.close()
+else:
+  print("Invalid choice")
